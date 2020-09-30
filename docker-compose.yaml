@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+    web:
+        image: containous/whoami
+        networks:
+          - proxy
+
+    haproxy:
+        container_name: haproxy
+        image: haproxy:2.2
+        ports:
+            - "80:80"
+        volumes:
+          - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+        networks:
+          - proxy
+
+networks:
+  proxy:
+    name: proxy
